@@ -1,0 +1,5 @@
+*~
+pkg/
+.vagrant
+coverage/
+Berksfile.lock
