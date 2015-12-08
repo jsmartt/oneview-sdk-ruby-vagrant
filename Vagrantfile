@@ -38,8 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  
   config.vm.provision 'shell', path: 'scripts/password_reset.sh' # Force password changes for root and vagrant users
   config.vm.provision 'shell', path: 'scripts/z_git_prompt.sh' # Copy the git_prompt download script
-  # config.vm.provision 'shell', path: 'scripts/chef_shell_init.sh' # Set up the chef_shell_init script
-  config.vm.provision 'shell', path: 'scripts/custom_bash_setup.sh' # Set up the custom_bash_setup script
+  config.vm.provision 'shell', path: 'scripts/z_custom_bash_setup.sh' # Set up the custom_bash_setup script
 
   # Enable provisioning with chef
   config.omnibus.chef_version = :latest
