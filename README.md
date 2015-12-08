@@ -40,6 +40,7 @@ Although Vagrant and Chef are great for setting things up, there's still some us
    - The system is waiting on password resets for the vagrant and/or root users. Log in with `$ vagrant ssh` and then `$ su root`. Follow any password reset prompts.
  - **Cookbook <X> not found**
    - Update the vagrant-berkshelf plugin by running:
+     
      ```bash
      $ vagrant plugin uninstall vagrant-berkshelf
      $ vagrant plugin install vagrant-berkshelf`
