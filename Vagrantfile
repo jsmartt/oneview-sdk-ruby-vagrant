@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Turn off if you want to set up your own ssh keys on these machine
   config.ssh.forward_agent = true
 
- 
+
   config.vm.provision 'shell', path: 'scripts/password_reset.sh' # Force password changes for root and vagrant users
   config.vm.provision 'shell', path: 'scripts/z_git_prompt.sh' # Copy the git_prompt download script
   config.vm.provision 'shell', path: 'scripts/z_custom_bash_setup.sh' # Set up the custom_bash_setup script
@@ -60,13 +60,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Copy your git config over
-  if %w(up status).include?(ARGV.first.downcase)
-    if File.exist?("#{ENV['HOME']}/.gitconfig")
-      puts "Note: Running '$ vagrant up' will copy your .gitconfig over from #{ENV['HOME']}/.gitconfig , so make sure it is configured properly."
-      config.vm.provision 'file', source: "#{ENV['HOME']}/.gitconfig", destination: '.gitconfig'
-    else
-      puts "No .gitconfig found at #{ENV['HOME']}/.gitconfig ... skipping"
-    end
+  if File.exist?("#{ENV['HOME']}/.gitconfig")
+    config.vm.provision 'file', source: "#{ENV['HOME']}/.gitconfig", destination: '/home/vagrant/.gitconfig'
   end
 
   # Set git to use linux line endings
