@@ -49,8 +49,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         'repositories' => ['epel']
       },
       'rvm' => {
-        'rubies' => ['2.2.0'],
-        'default_ruby' => 'ruby-2.2.0'
+        'rubies' => ['2.2.4'],
+        'default_ruby' => 'ruby-2.2.4'
       }
     }
     chef.add_recipe 'yum-epel'
