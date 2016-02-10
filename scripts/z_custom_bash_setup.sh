@@ -6,7 +6,8 @@ alias ls='ls --color'
 alias ll='ls -lah --color'
 alias path='echo $PATH | tr ":" "\n"'
 
-echo "Setting oneview-sdk-ruby environment variables in '/etc/profile.d/z_custom_bash_setup.sh'."
+echo -e "Setting oneview-sdk-ruby environment variables in '/etc/profile.d/z_custom_bash_setup.sh'.\n"
+
 # Set oneview-sdk-ruby environment variables
 export ONEVIEWSDK_SSL_ENABLED=false
 # export ONEVIEWSDK_URL="https://oneview.domain.com"
@@ -19,5 +20,9 @@ export ONEVIEWSDK_USER="Administrator"
 if command -v oneview-sdk-ruby > /dev/null 2>&1 ; then
   oneview-sdk-ruby env
 fi
+
+echo ""
+echo "ONEVIEWSDK_INTEGRATION_CONFIG  = $ONEVIEWSDK_INTEGRATION_CONFIG"
+echo "ONEVIEWSDK_INTEGRATION_SECRETS = $ONEVIEWSDK_INTEGRATION_SECRETS"
 EOL
 fi

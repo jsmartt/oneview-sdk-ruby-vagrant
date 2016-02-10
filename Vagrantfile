@@ -44,6 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.omnibus.chef_version = :latest
 
   config.vm.provision 'chef_zero' do |chef|
+    chef.nodes_path = 'nodes'
     chef.json = {
       'yum-epel' => {
         'repositories' => ['epel']
