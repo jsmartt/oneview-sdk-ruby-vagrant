@@ -22,7 +22,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
   end
 
-  # config.vm.network 'forwarded_port', guest: 80, host: 8080
+  # Forwarded port for simplecov report (via nginx)
+  config.vm.network 'forwarded_port', guest: 80, host: 8080
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on your network.
@@ -34,7 +35,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #  See https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-msysgit for info on how to do this automatically.
   # Turn off if you want to set up your own ssh keys on these machine
   config.ssh.forward_agent = true
-
 
   config.vm.provision 'shell', path: 'scripts/password_reset.sh' # Force password changes for root and vagrant users
   config.vm.provision 'shell', path: 'scripts/z_git_prompt.sh' # Copy the git_prompt download script
@@ -60,9 +60,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.add_recipe 'rvm::vagrant'
   end
 
-  # Copy your git config over
-  if File.exist?("#{ENV['HOME']}/.gitconfig")
-    config.vm.provision 'file', source: "#{ENV['HOME']}/.gitconfig", destination: '/home/vagrant/.gitconfig'
+  config.vm.provision 'shell', path: 'scripts/nginx_config.sh' # Set up nginx server for simplecov reports
+
+  # Copy your customized config files over
+  ['.gemrc', '.gitconfig', '.vimrc'].each do |fname|
+    if File.exist?("#{ENV['HOME']}/#{fname}")
+      config.vm.provision 'file', source: "#{ENV['HOME']}/#{fname}", destination: "/home/vagrant/#{fname}"
+    end
   end
 
   # Set git to use linux line endings
