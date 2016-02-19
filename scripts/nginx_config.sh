@@ -40,3 +40,4 @@ EOL
 
 sudo service nginx status || sudo nginx
 sudo service nginx status && sudo nginx -s reload
+sudo chkconfig nginx on
